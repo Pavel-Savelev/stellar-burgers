@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { MyInput } from '../../input/input';
 import {
   Input,
   Button,
@@ -32,7 +33,7 @@ export const ResetPasswordUI: FC<ResetPasswordUIProps> = ({
           />
         </div>
         <div className='pb-6'>
-          <Input
+          <MyInput
             type='text'
             placeholder='Введите код из письма'
             onChange={(e) => setToken(e.target.value)}

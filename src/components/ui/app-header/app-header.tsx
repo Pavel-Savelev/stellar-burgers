@@ -17,43 +17,55 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => {
       <nav className={`${styles.menu} p-4`}>
         <div className={styles.menu_part_left}>
           <Link
-            to="/"
-            className={`${styles.link} ${location.pathname === '/' ? styles.active : ''
-              }`}
+            to='/'
+            className={`${styles.link} ${
+              location.pathname === '/' ? styles.active : ''
+            }`}
           >
-            <BurgerIcon type={location.pathname === '/' ? 'primary' : 'secondary'} />
-            <p className="text text_type_main-default ml-2 mr-10">Конструктор</p>
+            <BurgerIcon
+              type={location.pathname === '/' ? 'primary' : 'secondary'}
+            />
+            <p className='text text_type_main-default ml-2 mr-10'>
+              Конструктор
+            </p>
           </Link>
 
           <Link
-            to="/feed"
-            className={`${styles.link} ${location.pathname.startsWith('/feed') ? styles.active : ''
-              }`}
+            to='/feed'
+            className={`${styles.link} ${
+              location.pathname.startsWith('/feed') ? styles.active : ''
+            }`}
           >
             <ListIcon
-              type={location.pathname.startsWith('/feed') ? 'primary' : 'secondary'}
+              type={
+                location.pathname.startsWith('/feed') ? 'primary' : 'secondary'
+              }
             />
-            <p className="text text_type_main-default ml-2">Лента заказов</p>
+            <p className='text text_type_main-default ml-2'>Лента заказов</p>
           </Link>
         </div>
 
         <div className={styles.logo}>
-          <Link to="/">
-            <Logo className="" />
+          <Link to='/'>
+            <Logo className='' />
           </Link>
         </div>
 
-
         <div className={styles.link_position_last}>
           <Link
-            to="/profile"
-            className={`${styles.link} ${location.pathname.startsWith('/profile') ? styles.active : ''
-              }`}
+            to='/profile'
+            className={`${styles.link} ${
+              location.pathname.startsWith('/profile') ? styles.active : ''
+            }`}
           >
             <ProfileIcon
-              type={location.pathname.startsWith('/profile') ? 'primary' : 'secondary'}
+              type={
+                location.pathname.startsWith('/profile')
+                  ? 'primary'
+                  : 'secondary'
+              }
             />
-            <p className="text text_type_main-default ml-2">
+            <p className='text text_type_main-default ml-2'>
               {userName || 'Личный кабинет'}
             </p>
           </Link>

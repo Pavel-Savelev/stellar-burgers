@@ -8,15 +8,16 @@ export const Register: FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const err = useSelector((state: RootState) => state.auth.error)
-
+  const err = useSelector((state: RootState) => state.auth.error);
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    dispatch(registerUser({ name: userName, email:email, password:password }))
-  }
+    dispatch(
+      registerUser({ name: userName, email: email, password: password })
+    );
+  };
 
   return (
     <RegisterUI

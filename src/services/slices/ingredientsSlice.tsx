@@ -28,7 +28,7 @@ export const fetchIngredients = createAsyncThunk<
     );
   }
 });
-  console.log('Fetching ingredients from:', `${URL}/ingredients`);
+console.log('Fetching ingredients from:', `${URL}/ingredients`);
 
 const ingredientsSlice = createSlice({
   name: 'ingredients',

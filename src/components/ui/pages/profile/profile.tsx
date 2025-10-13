@@ -1,6 +1,7 @@
 import { FC } from 'react';
-
+import { MyInput } from '../../input/input';
 import { Button, Input } from '@zlden/react-developer-burger-ui-components';
+
 import styles from './profile.module.css';
 import commonStyles from '../common.module.css';
 
@@ -25,7 +26,7 @@ export const ProfileUI: FC<ProfileUIProps> = ({
     >
       <>
         <div className='pb-6'>
-          <Input
+          <MyInput
             type={'text'}
             placeholder={'Имя'}
             onChange={handleInputChange}
@@ -38,7 +39,7 @@ export const ProfileUI: FC<ProfileUIProps> = ({
           />
         </div>
         <div className='pb-6'>
-          <Input
+          <MyInput
             type={'email'}
             placeholder={'E-mail'}
             onChange={handleInputChange}
@@ -51,7 +52,7 @@ export const ProfileUI: FC<ProfileUIProps> = ({
           />
         </div>
         <div className='pb-6'>
-          <Input
+          <MyInput
             type={'password'}
             placeholder={'Пароль'}
             onChange={handleInputChange}

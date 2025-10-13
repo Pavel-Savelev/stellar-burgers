@@ -1,4 +1,5 @@
 import { FC, useState } from 'react';
+import { MyInput } from '../../input/input';
 import {
   Input,
   Button,
@@ -28,7 +29,7 @@ export const RegisterUI: FC<RegisterUIProps> = ({
       >
         <>
           <div className='pb-6'>
-            <Input
+            <MyInput
               type='text'
               placeholder='Имя'
               onChange={(e) => setUserName(e.target.value)}
@@ -40,7 +41,7 @@ export const RegisterUI: FC<RegisterUIProps> = ({
             />
           </div>
           <div className='pb-6'>
-            <Input
+            <MyInput
               type='email'
               placeholder='E-mail'
               onChange={(e) => setEmail(e.target.value)}

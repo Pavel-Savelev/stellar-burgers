@@ -10,15 +10,15 @@ import { addIngredient } from '../../services/slices/burgerConstructor';
 export const BurgerIngredient: FC<TBurgerIngredientProps> = memo(
   ({ ingredient, count }) => {
     const location = useLocation();
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
     const handleAdd = () => {
-  if (ingredient.type === 'bun') {
-    dispatch(setBun(ingredient));
-  } else {
-    dispatch(addIngredient(ingredient));
-  }
-};
+      if (ingredient.type === 'bun') {
+        dispatch(setBun(ingredient));
+      } else {
+        dispatch(addIngredient(ingredient));
+      }
+    };
 
     return (
       <BurgerIngredientUI

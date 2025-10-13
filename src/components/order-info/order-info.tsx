@@ -17,9 +17,11 @@ export const OrderInfo: FC = () => {
   // };
 
   // const ingredients: TIngredient[] = [];
-  const ingredients = useSelector((state:RootState) => state.ingredients.items)
+  const ingredients = useSelector(
+    (state: RootState) => state.ingredients.items
+  );
 
-  const orderData = useSelector((state:RootState) => state.order.currentOrder)
+  const orderData = useSelector((state: RootState) => state.order.currentOrder);
 
   /* Готовим данные для отображения */
   const orderInfo = useMemo(() => {

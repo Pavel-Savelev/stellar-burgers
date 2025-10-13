@@ -16,12 +16,14 @@ export const FeedInfo: FC = () => {
   //   (state:RootState) => state.feeds
   // )
   /** TODO: взять переменные из стора */
-const { items: orders, total, totalToday } = useSelector(
-    (state: RootState) => state.feeds
-  );
+  const {
+    items: orders,
+    total,
+    totalToday
+  } = useSelector((state: RootState) => state.feeds);
 
   const readyOrders = getOrders(orders, 'done');
-  
+
   const pendingOrders = getOrders(orders, 'pending');
   return (
     <FeedInfoUI
@@ -29,5 +31,5 @@ const { items: orders, total, totalToday } = useSelector(
       pendingOrders={pendingOrders}
       feed={{ total, totalToday }}
     />
-  );   
+  );
 };

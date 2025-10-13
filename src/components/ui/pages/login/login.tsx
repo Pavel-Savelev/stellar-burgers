@@ -1,4 +1,5 @@
 import { FC, useState } from 'react';
+import { MyInput } from '../../input/input';
 import {
   Input,
   Button,
@@ -26,7 +27,7 @@ export const LoginUI: FC<LoginUIProps> = ({
       >
         <>
           <div className='pb-6'>
-            <Input
+            <MyInput
               type='email'
               placeholder='E-mail'
               onChange={(e) => setEmail(e.target.value)}

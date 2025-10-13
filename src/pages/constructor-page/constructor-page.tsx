@@ -6,7 +6,6 @@ import { FC } from 'react';
 import type { RootState } from '../../services/store';
 
 export const ConstructorPage: FC = () => {
-
   const { loading: isIngredientsLoading, error } = useSelector(
     (state: RootState) => state.ingredients
   );
