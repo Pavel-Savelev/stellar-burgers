@@ -7,9 +7,15 @@ import type { RootState } from '../../services/store';
 import { useNavigate } from 'react-router-dom';
 
 export const BurgerConstructor: FC = () => {
-  const constructorItems = useSelector((state: RootState) => state.burgerConstructor);
-  const orderRequest = useSelector((state: RootState) => state.order.orderRequest);
-  const orderModalData = useSelector((state: RootState) => state.order.currentOrder);
+  const constructorItems = useSelector(
+    (state: RootState) => state.burgerConstructor
+  );
+  const orderRequest = useSelector(
+    (state: RootState) => state.order.orderRequest
+  );
+  const orderModalData = useSelector(
+    (state: RootState) => state.order.currentOrder
+  );
   const user = useSelector((state: RootState) => state.auth.user);
 
   const dispatch = useDispatch();

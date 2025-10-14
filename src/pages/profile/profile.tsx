@@ -9,8 +9,8 @@ export const Profile: FC = () => {
   //   name: '',
   //   email: ''
   // };
-  const user = useSelector((state:RootState) => state.auth.user)
-  
+  const user = useSelector((state: RootState) => state.auth.user);
+
   const [formValue, setFormValue] = useState({
     name: user?.name || '',
     email: user?.email || '',
@@ -59,6 +59,4 @@ export const Profile: FC = () => {
       handleInputChange={handleInputChange}
     />
   );
-
-
 };

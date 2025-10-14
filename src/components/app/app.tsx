@@ -25,7 +25,6 @@ const App = () => {
       <AppHeader />
 
       <Routes>
-
         <Route path='/' element={<ConstructorPage />} />
         <Route path='/feed' element={<Feed />} />
 
@@ -61,7 +60,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        
+
         <Route
           path='/profile/orders'
           element={

@@ -92,7 +92,7 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
         <Preloader />
       </Modal>
     )}
-  
+
     {orderModalData && (
       <Modal
         onClose={closeOrderModal}

@@ -6,15 +6,16 @@ import { BurgerIngredientsUI } from '../ui/burger-ingredients';
 
 import { useSelector, useDispatch } from '../../services/store';
 
-
 import { RootState } from 'src/services/store';
 import { fetchIngredients } from '../../services/slices/ingredientsSlice';
 
 export const BurgerIngredients: FC = () => {
-  const dispatch = useDispatch()
-  const { items: ingredients, loading, error } = useSelector(
-    (state: RootState) => state.ingredients
-  );
+  const dispatch = useDispatch();
+  const {
+    items: ingredients,
+    loading,
+    error
+  } = useSelector((state: RootState) => state.ingredients);
 
   if (loading) return <p>Загрузка ингредиентов...</p>;
 
@@ -23,15 +24,15 @@ export const BurgerIngredients: FC = () => {
   useEffect(() => {
     if (ingredients.length > 0) {
       console.log('Ингредиенты: ', ingredients);
-    } console.log('Пришел []')
+    }
+    console.log('Пришел []');
   }, [ingredients]);
 
   useEffect(() => {
-  if (!ingredients.length && !loading && !error) {
-    dispatch(fetchIngredients());
-  }
-}, [dispatch, ingredients.length, loading, error]);
-
+    if (!ingredients.length && !loading && !error) {
+      dispatch(fetchIngredients());
+    }
+  }, [dispatch, ingredients.length, loading, error]);
 
   /** TODO: взять переменные из стора */
   const buns = ingredients.filter((item) => item.type === 'bun');

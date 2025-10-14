@@ -11,7 +11,7 @@ interface IOrderState {
 const initialState: IOrderState = {
   currentOrder: null,
   orderRequest: false,
-  error: null,
+  error: null
 };
 
 export const createOrder = createAsyncThunk<
@@ -23,7 +23,9 @@ export const createOrder = createAsyncThunk<
     const data = await orderBurgerApi(ingredients);
     return data.order;
   } catch (err: any) {
-    return thunkAPI.rejectWithValue(err.message || 'Ошибка при создании заказа');
+    return thunkAPI.rejectWithValue(
+      err.message || 'Ошибка при создании заказа'
+    );
   }
 });
 
@@ -33,7 +35,7 @@ const orderSlice = createSlice({
   reducers: {
     clearOrder(state) {
       state.currentOrder = null;
-    },
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -49,7 +51,7 @@ const orderSlice = createSlice({
         state.orderRequest = false;
         state.error = action.payload || 'Неизвестная ошибка';
       });
-  },
+  }
 });
 
 export const { clearOrder } = orderSlice.actions;

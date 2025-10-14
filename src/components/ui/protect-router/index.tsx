@@ -18,11 +18,11 @@ export const ProtectedRoute: FC<ProtectedRouteProps> = ({
   const isAuth = !!user;
 
   if (onlyUnAuth && isAuth) {
-    return <Navigate to="/" replace />;
+    return <Navigate to='/' replace />;
   }
 
   if (!onlyUnAuth && !isAuth) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
+    return <Navigate to='/login' state={{ from: location }} replace />;
   }
 
   return children;
