@@ -22,9 +22,12 @@ export const fetchMyOrders = createAsyncThunk<
   try {
     const data = await getOrdersApi();
     return data;
-  } catch (err: any) {
-    return thunkAPI.rejectWithValue(err.message || 'Ошибка загрузки заказов');
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      return thunkAPI.rejectWithValue(err.message);
+    }
   }
+  return thunkAPI.rejectWithValue('Ошибка загрузки заказов');
 });
 
 const ordersSlice = createSlice({

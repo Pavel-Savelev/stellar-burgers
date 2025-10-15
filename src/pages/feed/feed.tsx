@@ -1,20 +1,22 @@
 import { Preloader } from '@ui';
 import { FeedUI } from '@ui-pages';
 import { FC, useEffect } from 'react';
-import { useSelector, useDispatch } from '../../services/store';
+import { useAppSelector, useAppDispatch } from '../../services/store';
 import { fetchFeeds } from '../../services/slices/feedsSlice';
-import type { RootState, AppDispatch } from '../../services/store';
+import type { RootState } from '../../services/store';
 
 export const Feed: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const { items, loading, error } = useSelector(
+  const { items, loading, error } = useAppSelector(
     (state: RootState) => state.feeds
   );
 
   useEffect(() => {
     dispatch(fetchFeeds());
   }, [dispatch]);
+
+  const handleFetch = () => dispatch(fetchFeeds());
 
   if (loading) {
     return <Preloader />;
@@ -24,7 +26,5 @@ export const Feed: FC = () => {
     return <p>Ошибка: {error}</p>;
   }
 
-  return (
-    <FeedUI orders={items} handleGetFeeds={() => dispatch(fetchFeeds())} />
-  );
+  return <FeedUI orders={items} handleGetFeeds={handleFetch} />;
 };

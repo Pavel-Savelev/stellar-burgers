@@ -2,26 +2,24 @@ import { FC, useMemo } from 'react';
 import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient } from '@utils-types';
-import { useSelector, UseSelector } from 'react-redux';
-import { RootState } from 'src/services/store';
-export const OrderInfo: FC = () => {
-  /** TODO: взять переменные orderData и ingredients из стора */
-  // const orderData = {
-  //   createdAt: '',
-  //   ingredients: [],
-  //   _id: '',
-  //   status: '',
-  //   name: '',
-  //   updatedAt: 'string',
-  //   number: 0
-  // };
+import { useAppSelector } from '../../services/store';
+import { RootState } from '../../services/store';
+import { useParams } from 'react-router-dom';
 
-  // const ingredients: TIngredient[] = [];
-  const ingredients = useSelector(
+export const OrderInfo: FC = () => {
+  const ingredients = useAppSelector(
     (state: RootState) => state.ingredients.items
   );
 
-  const orderData = useSelector((state: RootState) => state.order.currentOrder);
+  // const orderData = useAppSelector(
+  //   (state: RootState) => state.order.currentOrder
+  // );
+
+  const { number } = useParams<{ number: string }>();
+  const feeds = useAppSelector((state: RootState) => state.feeds.items);
+  const orderData = feeds.find((order) => order.number === Number(number));
+
+  // console.log('ORDER INFO :', orderData);
 
   /* Готовим данные для отображения */
   const orderInfo = useMemo(() => {

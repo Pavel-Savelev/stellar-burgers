@@ -22,11 +22,12 @@ export const createOrder = createAsyncThunk<
   try {
     const data = await orderBurgerApi(ingredients);
     return data.order;
-  } catch (err: any) {
-    return thunkAPI.rejectWithValue(
-      err.message || 'Ошибка при создании заказа'
-    );
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      return thunkAPI.rejectWithValue(err.message);
+    }
   }
+  return thunkAPI.rejectWithValue('Ошибка при создании заказа');
 });
 
 const orderSlice = createSlice({

@@ -9,6 +9,8 @@ import {
   TRegisterData
 } from '@api';
 import { TUser } from '../../utils/types';
+import { setCookie, getCookie, deleteCookie } from '../../utils/cookie';
+import { access } from 'fs';
 
 export type AuthState = {
   user: TUser | null;
@@ -29,9 +31,15 @@ export const loginUser = createAsyncThunk(
   async (data: TLoginData, { rejectWithValue }) => {
     try {
       const res = await loginUserApi(data);
+      const accessToken = res.accessToken;
+      // на 20 минут сохраню, надо узнать на сколько нужно
+      setCookie('accessToken', accessToken, { expires: 1200 });
+      localStorage.setItem('refreshToken', res.refreshToken);
+
       return res.user;
-    } catch (err: any) {
-      return rejectWithValue(err.message || 'Login failed');
+    } catch (err: unknown) {
+      if (err instanceof Error) return rejectWithValue(err.message);
+      return rejectWithValue('Login failed');
     }
   }
 );
@@ -41,9 +49,14 @@ export const registerUser = createAsyncThunk(
   async (data: TRegisterData, { rejectWithValue }) => {
     try {
       const res = await registerUserApi(data);
+      const accessToken = res.accessToken;
+      setCookie('accessToken', accessToken, { expires: 1200 });
+      localStorage.setItem('refreshToken', res.refreshToken);
+
       return res.user;
-    } catch (err: any) {
-      return rejectWithValue(err.message || 'Register failed');
+    } catch (err: unknown) {
+      if (err instanceof Error) return rejectWithValue(err.message);
+      return rejectWithValue('Register failed');
     }
   }
 );
@@ -54,8 +67,32 @@ export const fetchUser = createAsyncThunk(
     try {
       const res = await getUserApi();
       return res.user;
-    } catch (err: any) {
-      return rejectWithValue(err.message || 'User fetch failed');
+    } catch (err: unknown) {
+      if (err instanceof Error) return rejectWithValue(err.message);
+      return rejectWithValue('User fetch failed');
+    }
+  }
+);
+
+export const checkUserAuth = createAsyncThunk(
+  'auth/checkUserAuth',
+  async (_, { dispatch, rejectWithValue }) => {
+    try {
+      const accessToken = getCookie('accessToken');
+      const refreshToken = localStorage.getItem('refreshToken');
+
+      if (!accessToken && !refreshToken) {
+        throw new Error('No tokens');
+      }
+
+      const res = await getUserApi();
+      return res.user;
+    } catch (err: unknown) {
+      deleteCookie('accessToken');
+      localStorage.removeItem('refreshToken');
+
+      if (err instanceof Error) return rejectWithValue(err.message);
+      return rejectWithValue('Auth check failed');
     }
   }
 );
@@ -66,8 +103,9 @@ export const updateUser = createAsyncThunk(
     try {
       const res = await updateUserApi(user);
       return res.user;
-    } catch (err: any) {
-      return rejectWithValue(err.message || 'User update failed');
+    } catch (err: unknown) {
+      if (err instanceof Error) return rejectWithValue(err.message);
+      return rejectWithValue('User update failed');
     }
   }
 );
@@ -77,8 +115,9 @@ export const logoutUser = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       await logoutApi();
-    } catch (err: any) {
-      return rejectWithValue(err.message || 'Logout failed');
+    } catch (err: unknown) {
+      if (err instanceof Error) return rejectWithValue(err.message);
+      return rejectWithValue('Logout failed');
     }
   }
 );
@@ -125,6 +164,14 @@ const authSlice = createSlice({
       .addCase(logoutUser.fulfilled, (state) => {
         state.user = null;
         state.isAuthChecked = false;
+      })
+      .addCase(checkUserAuth.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.isAuthChecked = true;
+      })
+      .addCase(checkUserAuth.rejected, (state) => {
+        state.user = null;
+        state.isAuthChecked = true;
       });
   }
 });

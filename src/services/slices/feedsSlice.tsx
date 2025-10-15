@@ -30,8 +30,11 @@ export const fetchFeeds = createAsyncThunk<
       total: data.total,
       totalToday: data.totalToday
     };
-  } catch (err: any) {
-    return thunkAPI.rejectWithValue(err.message || 'Ошибка загрузки ленты');
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      return thunkAPI.rejectWithValue(err.message);
+    }
+    return thunkAPI.rejectWithValue('Ошибка загрузки ленты');
   }
 });
 

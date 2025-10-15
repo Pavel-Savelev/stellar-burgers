@@ -22,10 +22,11 @@ export const fetchIngredients = createAsyncThunk<
   try {
     const data = await getIngredientsApi();
     return data;
-  } catch (err: any) {
-    return thunkAPI.rejectWithValue(
-      err.message || 'Ошибка загрузки ингредиентов'
-    );
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      return thunkAPI.rejectWithValue(err.message);
+    }
+    return thunkAPI.rejectWithValue('Ошибка загрузки ингредиентов');
   }
 });
 console.log('Fetching ingredients from:', `${URL}/ingredients`);

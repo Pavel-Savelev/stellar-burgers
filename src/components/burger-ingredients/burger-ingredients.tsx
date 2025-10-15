@@ -4,18 +4,18 @@ import { useInView } from 'react-intersection-observer';
 import { TTabMode } from '@utils-types';
 import { BurgerIngredientsUI } from '../ui/burger-ingredients';
 
-import { useSelector, useDispatch } from '../../services/store';
+import { useAppSelector, useAppDispatch } from '../../services/store';
 
 import { RootState } from 'src/services/store';
 import { fetchIngredients } from '../../services/slices/ingredientsSlice';
 
 export const BurgerIngredients: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const {
     items: ingredients,
     loading,
     error
-  } = useSelector((state: RootState) => state.ingredients);
+  } = useAppSelector((state: RootState) => state.ingredients);
 
   if (loading) return <p>Загрузка ингредиентов...</p>;
 
@@ -34,7 +34,6 @@ export const BurgerIngredients: FC = () => {
     }
   }, [dispatch, ingredients.length, loading, error]);
 
-  /** TODO: взять переменные из стора */
   const buns = ingredients.filter((item) => item.type === 'bun');
   const mains = ingredients.filter((item) => item.type === 'main');
   const sauces = ingredients.filter((item) => item.type === 'sauce');

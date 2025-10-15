@@ -25,7 +25,11 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => {
             <BurgerIcon
               type={location.pathname === '/' ? 'primary' : 'secondary'}
             />
-            <p className='text text_type_main-default ml-2 mr-10'>
+            <p
+              className={`text text_type_main-default ml-2 mr-10 ${
+                location.pathname === '/' ? styles.activeText : ''
+              }`}
+            >
               Конструктор
             </p>
           </Link>
@@ -41,7 +45,13 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => {
                 location.pathname.startsWith('/feed') ? 'primary' : 'secondary'
               }
             />
-            <p className='text text_type_main-default ml-2'>Лента заказов</p>
+            <p
+              className={`text text_type_main-default ml-2 ${
+                location.pathname.startsWith('/feed') ? styles.activeText : ''
+              }`}
+            >
+              Лента заказов
+            </p>
           </Link>
         </div>
 

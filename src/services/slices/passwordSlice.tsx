@@ -21,8 +21,11 @@ export const forgotPassword = createAsyncThunk(
   async (email: { email: string }, { rejectWithValue }) => {
     try {
       return await forgotPasswordApi(email);
-    } catch (err: any) {
-      return rejectWithValue(err.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        return rejectWithValue(err.message);
+      }
+      return rejectWithValue('failed');
     }
   }
 );
