@@ -10,7 +10,7 @@ export const ProfileOrders: FC = () => {
     loading,
     error
   } = useAppSelector((state) => state.orders);
-
+  console.log(orders, 'sfv');
   useEffect(() => {
     dispatch(fetchMyOrders());
   }, [dispatch]);

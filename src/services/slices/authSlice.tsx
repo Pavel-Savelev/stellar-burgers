@@ -10,7 +10,6 @@ import {
 } from '@api';
 import { TUser } from '../../utils/types';
 import { setCookie, getCookie, deleteCookie } from '../../utils/cookie';
-import { access } from 'fs';
 
 export type AuthState = {
   user: TUser | null;

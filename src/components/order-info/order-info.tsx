@@ -19,8 +19,6 @@ export const OrderInfo: FC = () => {
   const feeds = useAppSelector((state: RootState) => state.feeds.items);
   const orderData = feeds.find((order) => order.number === Number(number));
 
-  // console.log('ORDER INFO :', orderData);
-
   /* Готовим данные для отображения */
   const orderInfo = useMemo(() => {
     if (!orderData || !ingredients.length) return null;
