@@ -114,6 +114,11 @@ export const logoutUser = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       await logoutApi();
+
+      deleteCookie('accessToken');
+      localStorage.removeItem('refreshToken');
+
+      return true;
     } catch (err: unknown) {
       if (err instanceof Error) return rejectWithValue(err.message);
       return rejectWithValue('Logout failed');

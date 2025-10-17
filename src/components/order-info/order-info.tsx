@@ -11,15 +11,10 @@ export const OrderInfo: FC = () => {
     (state: RootState) => state.ingredients.items
   );
 
-  // const orderData = useAppSelector(
-  //   (state: RootState) => state.order.currentOrder
-  // );
-
   const { number } = useParams<{ number: string }>();
   const feeds = useAppSelector((state: RootState) => state.feeds.items);
   const orderData = feeds.find((order) => order.number === Number(number));
 
-  /* Готовим данные для отображения */
   const orderInfo = useMemo(() => {
     if (!orderData || !ingredients.length) return null;
 
