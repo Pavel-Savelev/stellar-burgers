@@ -1,9 +1,7 @@
 import { setCookie, getCookie } from './cookie';
 import { TIngredient, TOrder, TOrdersData, TUser } from './types';
-// BURGER_API_URL=https://norma.nomoreparties.space/api в env
-// const URL = process.env.BURGER_API_URL;
 
-const URL = 'https://norma.nomoreparties.space/api';
+const URL = 'https://norma.education-services.ru/api';
 console.log(URL, 'URRLLLLLLLLLLLL');
 
 const checkResponse = <T>(res: Response): Promise<T> =>

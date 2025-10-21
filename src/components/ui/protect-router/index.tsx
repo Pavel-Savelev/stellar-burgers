@@ -13,11 +13,15 @@ export const ProtectedRoute: FC<ProtectedRouteProps> = ({
   onlyUnAuth = false
 }) => {
   const location = useLocation();
-  const { user, isAuthChecked } = useAppSelector(
+  const { user, isAuthChecked, loading } = useAppSelector(
     (state: RootState) => state.auth
   );
 
   const isAuth = !!user;
+
+  if (loading) {
+    return <Preloader />;
+  }
 
   if (!isAuthChecked) {
     return <Preloader />;

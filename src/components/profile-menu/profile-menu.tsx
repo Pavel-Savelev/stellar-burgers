@@ -9,7 +9,7 @@ export const ProfileMenu: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const handleLogout = async () => {
-    dispatch(logoutUser());
+    await dispatch(logoutUser()).unwrap();
     navigate('/login');
   };
 
