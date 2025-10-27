@@ -1,10 +1,13 @@
 import { FC, useMemo } from 'react';
 import { BurgerConstructorUI } from '@ui';
 import { useAppDispatch, useAppSelector } from '../../services/store';
-import { createOrder, clearOrder } from '../../services/slices/orderSlice';
+import {
+  createOrder,
+  clearOrder
+} from '../../services/slices/order/orderSlice';
 import { TConstructorIngredient } from '@utils-types';
-import { clearConstructor } from '../../services/slices/burgerConstructor';
-import { fetchFeeds } from '../../services/slices/feedsSlice';
+import { clearConstructor } from '../../services/slices/constructor/burgerConstructor';
+import { fetchFeeds } from '../../services/slices/feeds/feedsSlice';
 import type { RootState } from '../../services/store';
 import { useNavigate } from 'react-router-dom';
 

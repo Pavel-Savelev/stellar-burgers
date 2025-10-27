@@ -5,7 +5,7 @@ import {
   useAppDispatch,
   useAppSelector
 } from '../../services/store';
-import { registerUser } from '../../services/slices/authSlice';
+import { registerUser } from '../../services/slices/user/authSlice';
 // import { useNavigate } from 'react-router-dom';
 export const Register: FC = () => {
   const [userName, setUserName] = useState('');
