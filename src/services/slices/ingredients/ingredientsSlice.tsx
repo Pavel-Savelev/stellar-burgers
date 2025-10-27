@@ -45,7 +45,8 @@ const ingredientsSlice = createSlice({
       })
       .addCase(fetchIngredients.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload ?? action.error.message ?? 'Неизвестная ошибка';
+        state.error =
+          action.payload ?? action.error.message ?? 'Неизвестная ошибка';
       });
   }
 });

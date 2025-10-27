@@ -1,7 +1,4 @@
-import {
-  fetchIngredients,
-initialState
-} from './ingredientsSlice';;
+import { fetchIngredients, initialState } from './ingredientsSlice';
 
 import reducer from './ingredientsSlice';
 
@@ -17,17 +14,14 @@ const ingredientsMockData = [
     price: 1255,
     image: 'https://code.s3.yandex.net/react/code/bun-02.png',
     image_mobile: 'https://code.s3.yandex.net/react/code/bun-02-mobile.png',
-    image_large: 'https://code.s3.yandex.net/react/code/bun-02-large.png',
+    image_large: 'https://code.s3.yandex.net/react/code/bun-02-large.png'
   }
 ];
 
 describe('Тестирование ingredientsReducer', () => {
   describe('Асинхронная функция для получения ингридиентов: fetchIngredients', () => {
     test('Начало запроса: fetchIngredients.pending', () => {
-      const state = reducer(
-        initialState,
-        fetchIngredients.pending('pending')
-      );
+      const state = reducer(initialState, fetchIngredients.pending('pending'));
 
       expect(state.loading).toBeTruthy();
       expect(state.error).toBeNull();

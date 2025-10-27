@@ -1,7 +1,4 @@
-import reducer, {
-  createOrder,
-  clearOrder
-} from './orderSlice';
+import reducer, { createOrder, clearOrder } from './orderSlice';
 import { TOrder } from '@utils-types';
 
 describe('orderSlice', () => {

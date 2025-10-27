@@ -10,10 +10,7 @@ describe('ordersSlice', () => {
 
   const mockOrders: TOrder[] = [
     {
-      ingredients: [
-        '643d69a5c3f7b9001cfa093d',
-        '643d69a5c3f7b9001cfa0941'
-      ],
+      ingredients: ['643d69a5c3f7b9001cfa093d', '643d69a5c3f7b9001cfa0941'],
       _id: '6622337897ede0001d0666b5',
       status: 'done',
       name: 'Test Burger',
