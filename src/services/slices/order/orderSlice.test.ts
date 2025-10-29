@@ -1,5 +1,6 @@
 import reducer, { createOrder, clearOrder } from './orderSlice';
 import { TOrder } from '@utils-types';
+import { rootReducer } from '../../store/rootReducer';
 
 describe('orderSlice', () => {
   const initialState = {
@@ -63,5 +64,40 @@ describe('orderSlice', () => {
     const withOrder = { ...initialState, currentOrder: mockOrder };
     const state = reducer(withOrder, clearOrder());
     expect(state).toEqual(initialState);
+  });
+});
+
+describe('rootReducer', () => {
+  test('должен возвращать корректное начальное состояние', () => {
+    const initAction = { type: '@@INIT' };
+    const state = rootReducer(undefined, initAction);
+
+    // Проверяем, что состояние содержит необходимые слайсы
+    expect(state).toHaveProperty('order');
+    expect(state).toHaveProperty('burgerConstructor');
+    expect(state).toHaveProperty('ingredients');
+
+    expect(state.order).toEqual({
+      currentOrder: null,
+      orderRequest: false,
+      error: null
+    });
+  });
+
+  test('должен возвращать то же состояние при неизвестном экшене', () => {
+    const initialState = rootReducer(undefined, { type: '@@INIT' });
+    const state = rootReducer(initialState, { type: 'UNKNOWN_ACTION' });
+
+    expect(state).toBe(initialState);
+    expect(state).toEqual(initialState);
+  });
+
+  test('не должен мутировать состояние при неизвестном экшене', () => {
+    const initialState = rootReducer(undefined, { type: '@@INIT' });
+    const state = rootReducer(initialState, { type: 'UNKNOWN_ACTION' });
+
+    expect(state.order).toEqual(initialState.order);
+    expect(state.burgerConstructor).toEqual(initialState.burgerConstructor);
+    expect(state.ingredients).toEqual(initialState.ingredients);
   });
 });

@@ -1,5 +1,4 @@
 import { fetchIngredients, initialState } from './ingredientsSlice';
-
 import reducer from './ingredientsSlice';
 
 const ingredientsMockData = [
