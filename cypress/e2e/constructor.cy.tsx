@@ -140,11 +140,9 @@ describe('testing components from constructor page', () => {
 
   describe('Check order', () => {
     beforeEach(() => {
-      // Создать токен
       cy.setCookie('accessToken', 'EXAMPLE_ACCESS_TOKEN');
       localStorage.setItem('refreshToken', 'EXAMPLE_REFRESH_TOKEN');
 
-      // Перехват запросов
       cy.intercept('GET', 'api/auth/user', { fixture: 'user' });
       cy.intercept('POST', 'api/orders', {
         success: true,
