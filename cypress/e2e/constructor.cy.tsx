@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-// import * as orderFixture from '../fixtures/order.json';
+import * as orderFixture from '../fixtures/order.json';
 
 const API_URL = 'https://norma.education-services.ru/api';
 
