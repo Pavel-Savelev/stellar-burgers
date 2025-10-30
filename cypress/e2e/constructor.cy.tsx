@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-import * as orderFixture from '../fixtures/order.json';
+// import * as orderFixture from '../fixtures/order.json';
 
 const API_URL = 'https://norma.education-services.ru/api';
 
@@ -189,13 +189,10 @@ describe('testing components from constructor page', () => {
         cy.contains(mainName).should('exist');
         cy.get('@orderButton').should('be.enabled');
 
-        // Нажатие на кнопку оформления заказа
         cy.get('@orderButton').click();
 
-        // Ждем выполнения запроса создания заказа
         cy.wait('@createOrder');
-
-        // Проверка, что модальное окно открыто
+        
         cy.get('#modals').children().should('have.length', 2);
 
         // Проверка номера заказа
