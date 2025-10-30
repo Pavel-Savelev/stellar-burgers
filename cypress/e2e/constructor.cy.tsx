@@ -209,17 +209,8 @@ describe('testing components from constructor page', () => {
 
         // Проверяем что модальное окно закрылось
         cy.get('#modals').children().should('have.length', 0);
-
-        // УБРАНЫ ПРОВЕРКИ НА ОЧИСТКУ КОНСТРУКТОРА
-        // cy.contains(bunName).should('not.exist');
-        // cy.contains(mainName).should('not.exist');
       });
 
-      // УБРАНЫ ПРОВЕРКИ НА ПЛЕЙСХОЛДЕРЫ
-      // cy.contains('Выберите булки').should('exist');
-      // cy.contains('Выберите начинку').should('exist');
-
-      // Проверяем, что кнопка в каком-то состоянии (заблокирована или активна)
       cy.get('@orderButton').should('exist');
     });
 
