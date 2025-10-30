@@ -1,7 +1,5 @@
 /// <reference types="cypress" />
 
-import * as orderFixture from '../fixtures/order.json';
-
 const API_URL = 'https://norma.education-services.ru/api';
 
 describe('testing components from constructor page', () => {
@@ -17,7 +15,6 @@ describe('testing components from constructor page', () => {
   });
 
   it('check items from constructor list', () => {
-    // Проверяем список ингредиентов загружен
     cy.get('[data-ingredient="bun"]').should('have.length.at.least', 1);
     cy.get('[data-ingredient="main"],[data-ingredient="sauce"]').should(
       'have.length.at.least',
