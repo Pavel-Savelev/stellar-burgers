@@ -7,7 +7,7 @@ import { BurgerIngredientsUI } from '../ui/burger-ingredients';
 import { useAppSelector, useAppDispatch } from '../../services/store';
 
 import { RootState } from 'src/services/store';
-import { fetchIngredients } from '../../services/slices/ingredientsSlice';
+import { fetchIngredients } from '../../services/slices/ingredients/ingredientsSlice';
 
 export const BurgerIngredients: FC = () => {
   const dispatch = useAppDispatch();

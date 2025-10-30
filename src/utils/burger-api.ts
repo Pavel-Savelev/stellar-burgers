@@ -2,7 +2,6 @@ import { setCookie, getCookie } from './cookie';
 import { TIngredient, TOrder, TOrdersData, TUser } from './types';
 
 const URL = 'https://norma.education-services.ru/api';
-console.log(URL, 'URRLLLLLLLLLLLL');
 
 const checkResponse = <T>(res: Response): Promise<T> =>
   res.ok ? res.json() : res.json().then((err) => Promise.reject(err));

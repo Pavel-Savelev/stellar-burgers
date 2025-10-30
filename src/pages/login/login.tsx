@@ -3,7 +3,7 @@ import { LoginUI } from '@ui-pages';
 import { useAppDispatch, useAppSelector } from '../../services/store';
 import { RootState } from 'src/services/store';
 import { useNavigate } from 'react-router-dom';
-import { loginUser } from '../../services/slices/authSlice';
+import { loginUser } from '../../services/slices/user/authSlice';
 
 import { useLocation } from 'react-router-dom';
 

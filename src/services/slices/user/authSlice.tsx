@@ -8,8 +8,8 @@ import {
   TLoginData,
   TRegisterData
 } from '@api';
-import { TUser } from '../../utils/types';
-import { setCookie, getCookie, deleteCookie } from '../../utils/cookie';
+import { TUser } from '@utils-types';
+import { setCookie, getCookie, deleteCookie } from '../../../utils/cookie';
 
 export type AuthState = {
   user: TUser | null;

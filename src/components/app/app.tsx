@@ -14,7 +14,7 @@ import styles from './app.module.css';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../services/store';
 import { useEffect } from 'react';
-import { checkUserAuth } from '../../services/slices/authSlice';
+import { checkUserAuth } from '../../services/slices/user/authSlice';
 import { AppHeader, OrderInfo, IngredientDetails, Modal } from '@components';
 import { Routes, Route } from 'react-router-dom';
 import { ProtectedRoute } from '../ui/protect-router';
