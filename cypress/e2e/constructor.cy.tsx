@@ -40,8 +40,18 @@ describe('testing components from constructor page', () => {
       // Добавляем булку в конструктор
       cy.get('@firstBun').find('button').click();
 
-      cy.get('@bunName').then((bunName) => {
-        cy.contains(bunName.toString()).should('exist');
+      // Проверяем, что булка добавлена именно в конструктор
+      cy.get('[data-cy="constructor-bun-top"]').then(($bunElement) => {
+        cy.get('@bunName').then((bunName) => {
+          expect($bunElement).to.contain(bunName.toString());
+        });
+      });
+
+      // Также проверяем нижнюю булку
+      cy.get('[data-cy="constructor-bun-bottom"]').then(($bunElement) => {
+        cy.get('@bunName').then((bunName) => {
+          expect($bunElement).to.contain(bunName.toString());
+        });
       });
     });
 
@@ -55,9 +65,11 @@ describe('testing components from constructor page', () => {
       // Добавляем основной ингредиент в конструктор
       cy.get('@firstMain').find('button').click();
 
-      // Проверяем, что ингредиент появился в конструкторе
-      cy.get('@mainName').then((mainName) => {
-        cy.contains(mainName.toString()).should('exist');
+      // Проверяем, что ингредиент появился именно в конструкторе
+      cy.get('[data-cy="constructor-ingredients"]').then(($constructor) => {
+        cy.get('@mainName').then((mainName) => {
+          expect($constructor).to.contain(mainName.toString());
+        });
       });
     });
 
@@ -70,9 +82,11 @@ describe('testing components from constructor page', () => {
       // Добавляем соус в конструктор
       cy.get('@firstSauce').find('button').click();
 
-      // Проверяем, что соус появился в конструкторе
-      cy.get('@sauceName').then((sauceName) => {
-        cy.contains(sauceName.toString()).should('exist');
+      // Проверяем, что соус появился именно в конструкторе
+      cy.get('[data-cy="constructor-ingredients"]').then(($constructor) => {
+        cy.get('@sauceName').then((sauceName) => {
+          expect($constructor).to.contain(sauceName.toString());
+        });
       });
     });
 
@@ -84,36 +98,114 @@ describe('testing components from constructor page', () => {
       cy.get('@firstBun').find('button').click();
       cy.get('[data-order-button]').should('be.disabled');
 
+      // Проверяем, что булка в конструкторе
+      cy.get('[data-cy="constructor-bun-top"]').should('exist');
+      cy.get('[data-cy="constructor-bun-bottom"]').should('exist');
+
       // Добавляем основной ингредиент
       cy.get('@firstMain').find('button').click();
+
+      // Проверяем, что основной ингредиент в конструкторе
+      cy.get('[data-cy="constructor-ingredients"]').should('exist');
 
       // Проверяем, что кнопка стала активной
       cy.get('[data-order-button]').should('be.enabled');
 
-      // Проверяем, что ингредиенты отображаются в конструкторе
+      // Проверяем, что ингредиенты отображаются именно в конструкторе
       cy.get('@firstBun').then(($bun) => {
         const bunName = $bun.find('.text_type_main-default').text();
-        cy.contains(bunName).should('exist');
+        cy.get('[data-cy="constructor-bun-top"]').should('contain', bunName);
+        cy.get('[data-cy="constructor-bun-bottom"]').should('contain', bunName);
       });
 
       cy.get('@firstMain').then(($main) => {
         const mainName = $main.find('.text_type_main-default').text();
-        cy.contains(mainName).should('exist');
+        cy.get('[data-cy="constructor-ingredients"]').should(
+          'contain',
+          mainName
+        );
       });
     });
   });
 
-  //   Проверка модалки
+  // Проверка модалки ингредиентов
   describe('modal testing', () => {
-    it('checking open modal', () => {
+    it('checking open ingredient modal with correct content', () => {
+      // Получаем название и данные первой булки
+      cy.get('[data-ingredient="bun"]:first-of-type .text_type_main-default')
+        .invoke('text')
+        .as('ingredientName');
+
+      // Кликаем на первую булку
       cy.get('[data-ingredient="bun"]:first-of-type').click();
+
+      // Проверяем, что модальное окно открылось
       cy.get('#modals').children().should('have.length', 2);
+
+      // Проверяем, что в модальном окне отображается правильное название ингредиента
+      cy.get('@ingredientName').then((ingredientName) => {
+        cy.get('#modals').should('contain', ingredientName.toString());
+      });
+
+      // Дополнительные проверки содержимого модального окна
+      cy.get('#modals').within(() => {
+        // Проверяем, что есть изображение ингредиента
+        cy.get('img').should('exist');
+        
+        // Проверяем, что есть nutritional values
+        cy.contains('Калории').should('exist');
+        cy.contains('Белки').should('exist');
+        cy.contains('Жиры').should('exist');
+        cy.contains('Углеводы').should('exist');
+      });
+    });
+
+    it('checking open different ingredient types modal', () => {
+      // Тестируем для основного ингредиента
+      cy.get('[data-ingredient="main"]:first-of-type .text_type_main-default')
+        .invoke('text')
+        .as('mainIngredientName');
+
+      cy.get('[data-ingredient="main"]:first-of-type').click();
+
+      cy.get('#modals').children().should('have.length', 2);
+
+      cy.get('@mainIngredientName').then((ingredientName) => {
+        cy.get('#modals').should('contain', ingredientName.toString());
+      });
+
+      // Закрываем модальное окно
+      cy.get('#modals button:first-of-type').click();
+      cy.wait(500);
+
+      // Тестируем для соуса
+      cy.get('[data-ingredient="sauce"]:first-of-type .text_type_main-default')
+        .invoke('text')
+        .as('sauceIngredientName');
+
+      cy.get('[data-ingredient="sauce"]:first-of-type').click();
+
+      cy.get('#modals').children().should('have.length', 2);
+
+      cy.get('@sauceIngredientName').then((ingredientName) => {
+        cy.get('#modals').should('contain', ingredientName.toString());
+      });
     });
 
     describe('check modal close', () => {
       beforeEach(() => {
+        // Получаем название ингредиента перед открытием модалки
+        cy.get('[data-ingredient="bun"]:first-of-type .text_type_main-default')
+          .invoke('text')
+          .as('ingredientName');
+          
         cy.get('[data-ingredient="bun"]:first-of-type').click();
         cy.get('#modals').children().should('have.length', 2);
+        
+        // Проверяем, что модалка открылась с правильным ингредиентом
+        cy.get('@ingredientName').then((ingredientName) => {
+          cy.get('#modals').should('contain', ingredientName.toString());
+        });
       });
 
       it('close from cross', () => {
@@ -181,12 +273,16 @@ describe('testing components from constructor page', () => {
 
         // Добавляем булку и проверяем, что она появилась в конструкторе
         cy.get('[data-ingredient="bun"]:first-of-type button').click();
-        cy.contains(bunName).should('exist');
+        cy.get('[data-cy="constructor-bun-top"]').should('contain', bunName);
+        cy.get('[data-cy="constructor-bun-bottom"]').should('contain', bunName);
         cy.get('@orderButton').should('be.disabled');
 
         // Добавляем начинку и проверяем, что она появилась в конструкторе
         cy.get('[data-ingredient="main"]:first-of-type button').click();
-        cy.contains(mainName).should('exist');
+        cy.get('[data-cy="constructor-ingredients"]').should(
+          'contain',
+          mainName
+        );
         cy.get('@orderButton').should('be.enabled');
 
         // Нажатие на кнопку оформления заказа
@@ -201,21 +297,17 @@ describe('testing components from constructor page', () => {
         // Проверка номера заказа
         cy.get('#modals h2:first-of-type').should('have.text', '38321');
 
+        // Проверяем дополнительную информацию в модалке заказа
+        cy.get('#modals').should('contain', 'идентификатор заказа');
+        cy.get('#modals').should('contain', 'Ваш заказ начали готовить');
+
         // Закрываем модальное окно заказа
         cy.get('#modals button:first-of-type').click();
         cy.wait(500);
 
         // Проверяем что модальное окно закрылось
         cy.get('#modals').children().should('have.length', 0);
-
-        // УБРАНЫ ПРОВЕРКИ НА ОЧИСТКУ КОНСТРУКТОРА
-        // cy.contains(bunName).should('not.exist');
-        // cy.contains(mainName).should('not.exist');
       });
-
-      // УБРАНЫ ПРОВЕРКИ НА ПЛЕЙСХОЛДЕРЫ
-      // cy.contains('Выберите булки').should('exist');
-      // cy.contains('Выберите начинку').should('exist');
 
       // Проверяем, что кнопка в каком-то состоянии (заблокирована или активна)
       cy.get('@orderButton').should('exist');
