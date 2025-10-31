@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { TIngredient } from '../../utils/types';
-import { getIngredientsApi } from '../../utils/burger-api';
+import { TIngredient } from '@utils-types';
+import { getIngredientsApi } from '@api';
 
 interface IIngredientsState {
   items: TIngredient[];
@@ -8,7 +8,7 @@ interface IIngredientsState {
   error: string | null;
 }
 
-const initialState: IIngredientsState = {
+export const initialState: IIngredientsState = {
   items: [],
   loading: false,
   error: null
@@ -29,8 +29,6 @@ export const fetchIngredients = createAsyncThunk<
     return thunkAPI.rejectWithValue('Ошибка загрузки ингредиентов');
   }
 });
-console.log('Fetching ingredients from:', `${URL}/ingredients`);
-
 const ingredientsSlice = createSlice({
   name: 'ingredients',
   initialState,
@@ -47,7 +45,8 @@ const ingredientsSlice = createSlice({
       })
       .addCase(fetchIngredients.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || 'Неизвестная ошибка';
+        state.error =
+          action.payload ?? action.error.message ?? 'Неизвестная ошибка';
       });
   }
 });

@@ -4,8 +4,8 @@ import { useLocation } from 'react-router-dom';
 import { BurgerIngredientUI } from '@ui';
 import { TBurgerIngredientProps } from './type';
 import { useAppDispatch } from '../../services/store';
-import { setBun } from '../../services/slices/burgerConstructor';
-import { addIngredient } from '../../services/slices/burgerConstructor';
+import { setBun } from '../../services/slices/constructor/burgerConstructor';
+import { addIngredient } from '../../services/slices/constructor/burgerConstructor';
 
 export const BurgerIngredient: FC<TBurgerIngredientProps> = memo(
   ({ ingredient, count }) => {
